@@ -4,6 +4,8 @@
 
 The inner-working of the Kubernetes Network can often being confusing when only given the individual components and their configurations. This educational tool provides an interactive way to inspect each component and their relationships among each other.
 
+Checkout the related [Kubernetes Networking article](https://dominik-tornow.medium.com/kubernetes-networking-22ea81af44d0).
+
 ## Set-Up
 
 1. Have a Kubernetes cluster running locally. The tool will visualize the network configurations and resources of your current Kubernetes cluster.
