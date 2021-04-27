@@ -1,0 +1,17 @@
+#!/bin/bash
+unset KUBE
+export KUBE=$(kubectl get pods,nodes,services,endpoints --all-namespaces -o json)
+if [[ ${#KUBE} -lt 1 ]] ; then
+    echo "Error with kubectl not fetching full output JSON. Is your Kubernetes cluster running?"
+    exit 1
+fi
+awk '{                                                                           
+    while (match($0, /%KUBE+%/)) {
+        search = substr($0, RSTART + 1, RLENGTH - 2)
+        $0 = substr($0, 1, RSTART - 1)   \
+             ENVIRON[search]             \
+             substr($0, RSTART + RLENGTH)
+    }
+    print
+}' ./plugin/template.html > index.html
+python3 -m http.server 8080
